@@ -11,14 +11,14 @@ import pandas as pd
 from lxml import etree
 
 # Load the Excel file
-df = pd.read_excel("strings.xlsx")
+df = pd.read_excel("../strings.xlsx")
 
 # Iterate over each column in the row
 for column in df.columns:
     if column != "Name" and column != "values":
 
         # Create the directory for the XML file if it doesn't exist
-        directory = f"./app/src/main/res/{column}"
+        directory = f"../app/src/main/res/{column}"
         os.makedirs(directory, exist_ok=True)
 
         filepath = os.path.join(directory, "strings.xml")

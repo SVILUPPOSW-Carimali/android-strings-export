@@ -10,7 +10,8 @@ import os
 import xml.etree.ElementTree as ET
 import pandas as pd
 
-directory = './app/src/main/res'
+directory = '../app/src/main/res'
+output_file = "../strings.xlsx"
 
 string_map = {}
 
@@ -18,7 +19,7 @@ folderNames = []
 
 for root, _, files in os.walk(directory):
     for filename in files:
-        if filename == "strings.xml":
+        if filename.lower() == "strings.xml":
             filepath = os.path.join(root, filename)
             folderName = os.path.basename(os.path.dirname(filepath))
             folderNames.append(folderName)
@@ -50,7 +51,6 @@ for key, value in string_map.items():
 
 df = pd.concat([df, pd.DataFrame(rows)], ignore_index=True)
 
-output_file = "strings.xlsx"
 df.to_excel(output_file, index=False)
 
 # Open a CSV file for writing
