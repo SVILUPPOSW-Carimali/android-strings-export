@@ -37,6 +37,22 @@ for root, _, files in os.walk(directory):
                     dict[folderName] = text
                     string_map[key] = dict
 
+            for string in root.findall("string-array"):
+                # Skip strings marked with translatable="false"
+                if string.attrib.get('translatable', 'true') == 'false':
+                    continue
+                key = string.attrib['name']
+                n = 0
+                for item in string.findall("item"):
+                    text = item.text
+                    if key and text:
+                        item_key  = key + "." + str(n)
+                        dict = string_map.get(item_key,{})
+                        dict[folderName] = text
+                        string_map[item_key] = dict
+                    n = n + 1
+
+
 header = ["Name"]
 for fName in folderNames:
     header.append(fName)
